@@ -4,60 +4,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>荒野大镖客 · 德州扑克</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;700;900&family=Noto+Serif+SC:wght@400;500;700;900&family=Rye&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- 氛围层：背景木纹 -->
+  <div class="bg-wood"></div>
+  <!-- 氛围层：暗角 -->
+  <div class="vignette"></div>
+  <!-- 氛围层：浮动尘埃 -->
+  <div id="dust-container" class="dust-container"></div>
+
   <div class="game-container">
     <!-- 顶部信息栏 -->
     <header class="top-bar">
-      <div class="title">
-        <span class="star">★</span>
-        <h1>荒野大镖客 · 德州扑克</h1>
-        <span class="star">★</span>
+      <div class="top-bar-inner">
+        <div class="title">
+          <span class="star">★</span>
+          <h1>荒野大镖客</h1>
+          <span class="subtitle">TEXAS HOLD'EM</span>
+          <span class="star">★</span>
+        </div>
+        <div class="table-info">
+          <div class="info-chip">
+            <span class="info-icon">🂠</span>
+            <span id="hand-number" class="hand-number">第 0 手</span>
+          </div>
+          <div class="info-chip">
+            <span class="info-icon">💰</span>
+            <span class="blinds">盲注 $10/$20</span>
+          </div>
+        </div>
       </div>
-      <div class="table-info">
-        <span id="hand-number" class="hand-number">第 0 手</span>
-        <span class="divider">|</span>
-        <span class="blinds">盲注 $10/$20</span>
-      </div>
+      <div class="gold-trim"></div>
     </header>
 
     <!-- 主游戏桌面 -->
     <main class="poker-table">
-      <div class="table-felt">
-        <!-- 玩家座位容器 -->
-        <div id="players-container" class="players-container"></div>
+      <div class="table-wrapper">
+        <div class="table-felt">
+          <div class="felt-texture"></div>
+          <div class="felt-highlight"></div>
+          <div class="table-rail"></div>
 
-        <!-- 中央公共牌区 -->
-        <div class="center-area">
-          <div id="phase-label" class="phase-label">准备中</div>
-          <div id="community-cards" class="community-cards"></div>
-          <div class="pot-display">
-            <div class="pot-label">底池</div>
-            <div id="pot-amount" class="pot-amount">$0</div>
+          <!-- 玩家座位容器 -->
+          <div id="players-container" class="players-container"></div>
+
+          <!-- 中央公共牌区 -->
+          <div class="center-area">
+            <div id="phase-label" class="phase-label">准备中</div>
+            <div id="community-cards" class="community-cards"></div>
+            <div class="pot-display">
+              <div class="pot-ornament">❖</div>
+              <div class="pot-label">底池</div>
+              <div id="pot-amount" class="pot-amount">$0</div>
+              <div class="pot-ornament">❖</div>
+            </div>
           </div>
-        </div>
 
-        <!-- 阶段提示横幅 -->
-        <div id="phase-banner" class="phase-banner"></div>
+          <!-- 阶段提示横幅 -->
+          <div id="phase-banner" class="phase-banner"></div>
+        </div>
       </div>
     </main>
 
     <!-- 底部操作面板 -->
     <footer class="bottom-panel">
-      <div class="action-panel">
-        <button id="fold-btn" class="action-btn fold" disabled>弃牌</button>
-        <button id="check-btn" class="action-btn check" disabled>过牌</button>
-        <button id="call-btn" class="action-btn call" disabled>跟注</button>
-        <div class="raise-control">
-          <input type="range" id="raise-slider" min="20" max="1000" value="40">
-          <input type="number" id="raise-amount" min="20" max="1000" value="40">
+      <div class="gold-trim top"></div>
+      <div class="bottom-inner">
+        <div class="action-panel">
+          <button id="fold-btn" class="action-btn fold" disabled>
+            <span class="btn-icon">✕</span>
+            <span class="btn-text">弃牌</span>
+          </button>
+          <button id="check-btn" class="action-btn check" disabled>
+            <span class="btn-icon">✓</span>
+            <span class="btn-text">过牌</span>
+          </button>
+          <button id="call-btn" class="action-btn call" disabled>
+            <span class="btn-icon">⟳</span>
+            <span class="btn-text">跟注</span>
+          </button>
+          <div class="raise-control">
+            <div class="raise-label">加注</div>
+            <input type="range" id="raise-slider" min="20" max="1000" value="40">
+            <input type="number" id="raise-amount" min="20" max="1000" value="40">
+          </div>
+          <button id="raise-btn" class="action-btn raise" disabled>
+            <span class="btn-icon">▲</span>
+            <span class="btn-text">加注</span>
+          </button>
+          <button id="allin-btn" class="action-btn allin" disabled>
+            <span class="btn-icon">⚡</span>
+            <span class="btn-text">全押</span>
+          </button>
         </div>
-        <button id="raise-btn" class="action-btn raise" disabled>加注</button>
-        <button id="allin-btn" class="action-btn allin" disabled>全押</button>
+        <div class="log-container">
+          <div class="log-title">— 对局记录 —</div>
+          <div id="game-log" class="game-log"></div>
+        </div>
       </div>
-      <div id="game-log" class="game-log"></div>
     </footer>
   </div>
 
@@ -66,10 +112,14 @@
   <script src="js/ai.js"></script>
   <script src="js/game.js"></script>
   <script src="js/ui.js"></script>
+  <script src="js/effects.js"></script>
   <script>
     const ui = new UI();
     const game = new PokerGame(ui);
-    window.addEventListener('DOMContentLoaded', () => game.init());
+    window.addEventListener('DOMContentLoaded', () => {
+      game.init();
+      initDustParticles();
+    });
   </script>
 </body>
 </html>

@@ -62,7 +62,8 @@ class UI {
     document.getElementById('fold-btn').disabled = false;
     document.getElementById('check-btn').disabled = !canCheck;
     document.getElementById('call-btn').disabled = !canCall;
-    document.getElementById('call-btn').textContent = canCall ? `跟注 $${Math.min(toCall, player.chips)}` : '跟注';
+    const callText = document.querySelector('#call-btn .btn-text');
+    if (callText) callText.textContent = canCall ? `跟注 $${Math.min(toCall, player.chips)}` : '跟注';
     document.getElementById('raise-btn').disabled = !canRaise;
     document.getElementById('allin-btn').disabled = player.chips === 0;
 
